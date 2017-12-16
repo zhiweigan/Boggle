@@ -1,4 +1,4 @@
-#import json
+import json
 import random
 
 #generates board and finds all possible words
@@ -6,9 +6,7 @@ import random
 #4X4 grid
 #return board as a 2d list
 
-# with open('scrabbleDictionary.json.txt') as json_data:
-# 	words = json.load(json_data)
-# 	print(words)
+
 
 class Grid:
 
@@ -17,6 +15,7 @@ class Grid:
 		self.line2 = ''
 		self.line3 = ''
 		self.line4 = ''
+		self.possibleWords = ''
 
 	def makeBoard(self):
 		die0 = ['R', 'I', 'F', 'O', 'B', 'X']
@@ -41,13 +40,16 @@ class Grid:
 		print(die8[random.randint(0,5)], die9[random.randint(0,5)], die10[random.randint(0,5)], die11[random.randint(0,5)])
 		print(die12[random.randint(0,5)], die13[random.randint(0,5)], die14[random.randint(0,5)], die15[random.randint(0,5)])
 
-	#def wordCheck(self):
-		#json file used here
-		#while i in self.board == true:
+	def wordCheck(self):
+		with open('scrabbleDictionary.json.txt') as json_data:
+ 			self.possibleWords = json.load(json_data)
+ 			print(self.possibleWords)
+
 
 
 
 
 game1 = Grid()
 game1.makeBoard()
+game1.wordCheck()
 
