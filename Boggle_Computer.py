@@ -1,5 +1,3 @@
-#import Boggle_Grid
-#import Boggle_UI
 from random import randint
 
 class Computer():#difLvl, boardWords, playerWords): #need to somehow import the words that can be generated from the letters				
@@ -14,7 +12,6 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 		self.computerWordSum = 0
 		self.playerScore = 0
 		self.computerScore = 0
-
 
 	def wordScores(self, words, wordPoints):
 		for i in range (len(words[0])):
@@ -55,10 +52,6 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 			if computer[0][i] not in player[0]:
 				self.computerScore += computer[1][i] 
 
-
-
-
-
 	def operations(self):
 		self.posWords = Computer.wordScores(self.posWords, self.wordPoints)
 		Computer.isWords()
@@ -67,11 +60,5 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 		self.opponentWords = Computer.computerWords(self.computerWordSum, self.posWords)
 		Computer.scoring(self.playerWords, self.opponentWords)
 
-
-
-
-
-
 Computer = Computer()
-
 Computer.operations()
