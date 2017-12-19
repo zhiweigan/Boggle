@@ -10,7 +10,7 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 		self.opponentWords = [],[]
 		self.difLvl = .5
 		self.wordPoints = [0, 0, 0, 1, 1, 2, 3, 4, 11, 11, 11, 11, 11, 11, 11, 11, 11]
-		self.playerWords = ['pizza', 'words'],[]
+		self.playerWords = ['pizza', 'green', 'words', 'purple'],[]
 		self.computerWordSum = 0
 		self.playerScore = 0
 		self.computerScore = 0
@@ -20,6 +20,16 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 		for i in range (len(words[0])):
 			words[1].append(wordPoints[len(words[0][i])])
 		return words
+
+	def isWords(self):
+		for i in range(len(self.playerWords[0])-1):
+			print('len is ' + str(len(self.playerWords[0])))
+			print( 'i is ' + str(i))
+			if self.playerWords[0][i] not in self.posWords[0]:
+				(self.playerWords[0]).pop(i) 
+				i -= 1
+			print( 'i is ' + str(i))
+			print(self.playerWords[0][i])
 
 	def sumWordScore(self, wordsUsed, difLvl):
 		return int((sum(wordsUsed)*(difLvl)))
@@ -43,15 +53,12 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 
 	def scoring(self, player, computer):
 		for i in range (len(player[0])):
-			print(player[0][i])
-			print(computer[0])
 			if player[0][i] not in computer[0]:
 				self.playerScore += player[1][i]
 		for i in range (len(computer[0])):
 			if computer[0][i] not in player[0]:
 				self.computerScore += computer[1][i] 
-		print(self.playerScore)
-		print(self.computerScore)
+
 
 
 
@@ -60,8 +67,9 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 		#self.posWords[0] = boardWords
 		self.posWords = Computer.wordScores(self.posWords, self.wordPoints)
 #		print(self.posWords)
+		Computer.isWords()
 		self.playerWords = Computer.wordScores(self.playerWords, self.wordPoints)
-#		print(self.playerWords)
+		print(self.playerWords)
 		self.computerWordSum = Computer.sumWordScore(self.posWords[1], self.difLvl)
 #		print(self.computerWordSum)
 		self.opponentWords = Computer.computerWords(self.computerWordSum, self.posWords)
