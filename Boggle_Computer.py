@@ -5,12 +5,12 @@ from random import randint
 class Computer():#difLvl, boardWords, playerWords): #need to somehow import the words that can be generated from the letters				
 				  #take input from UI for the difficulty level
 	"""docstring for ClassName"""
-	def __init__(self):#, posWords, playerWords):
-		self.posWords = ['pizza', 'wo', 'red', 'iceeee', 'icecrea', 'slime'],[]
+	def __init__(self, posWords, playerWords, difficulty):#, posWords, playerWords):
+		self.posWords = posWords,[]
 		self.opponentWords = [],[]
-		self.difLvl = .5
+		self.difLvl = difficulty
 		self.wordPoints = [0, 0, 0, 1, 1, 2, 3, 4, 11, 11, 11, 11, 11, 11, 11, 11, 11]
-		self.playerWords = ['pizza', 'green', 'words', 'purple'],[]
+		self.playerWords = playerWords,[]
 		self.computerWordSum = 0
 		self.playerScore = 0
 		self.computerScore = 0
