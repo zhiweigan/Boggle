@@ -10,6 +10,8 @@ black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
 green = (0,255,0)
+blue = (100, 100, 255)
+bright_blue = (200,200,255)
 bright_green = (100,255,100)
 bright_red = (255,100,100)
 possiblewords = ["1234567812345678", "1234567812345678", "1234567812345678","1234567812345678","1234567812345678",
@@ -43,7 +45,7 @@ def button(msg,x,y,w,h,ic,ac,action=None,args=None):
         pygame.draw.rect(gameDisplay, ac,(x,y,w,h))
 
         if click[0] == 1 and action != None and args != None:
-            return checkWord(*args)
+            return action(*args)
         if click[0] == 1 and action != None:
             action()
     else:
@@ -60,6 +62,37 @@ def quitGame():
 
 def checkWord(word):
     return True
+
+def instructions():
+    instructionsbool = True
+    instructionwords = ["Welcome to Boggle!", "", "Score as high as possible!", "Click on letters and string words together!", "", "You have 3 minutes per round" ]
+
+    while instructionsbool:
+        for event in pygame.event.get():
+            # print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        gameDisplay.fill(white)
+        largeText = pygame.font.SysFont("comicsansms", 50)
+        TextSurf, TextRect = text_objects_black("Instructions!", largeText)
+        TextRect.center = ((display_width / 2), 130)
+        gameDisplay.blit(TextSurf, TextRect)
+
+        smallText = pygame.font.SysFont("comicsansms", 20)
+        i = 0
+        for words in instructionwords:
+            TextSurf, TextRect = text_objects_black(words, smallText)
+            TextRect.center = ((display_width / 2), 200 + i * 40)
+            i += 1
+            gameDisplay.blit(TextSurf, TextRect)
+
+        if button("Back", 20, 20, 100, 50, blue, bright_blue, checkWord, ['quit']):
+            instructionsbool = False
+
+        pygame.display.update()
+        clock.tick(15)
 
 def game_intro():
 
@@ -79,6 +112,7 @@ def game_intro():
         gameDisplay.blit(TextSurf, TextRect)
 
         button("GO!",150,450,100,50,green,bright_green,game)
+        button("Instructions", 300, 450, 200, 50, blue, bright_blue, instructions)
         button("Quit",550,450,100,50,red,bright_red,quitGame)
 
         pygame.display.update()
@@ -230,7 +264,7 @@ def game():
         textRect.topleft = (100,520)
         gameDisplay.blit(textSurf, textRect)
 
-        if time >= 60 *3 * 1000:
+        if time >= 60 * 3 * 1000:
             gameOver = True
 
 
