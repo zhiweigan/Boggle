@@ -23,13 +23,9 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 
 	def isWords(self):
 		for i in range(len(self.playerWords[0])-1):
-			print('len is ' + str(len(self.playerWords[0])))
-			print( 'i is ' + str(i))
 			if self.playerWords[0][i] not in self.posWords[0]:
 				(self.playerWords[0]).pop(i) 
 				i -= 1
-			print( 'i is ' + str(i))
-			print(self.playerWords[0][i])
 
 	def sumWordScore(self, wordsUsed, difLvl):
 		return int((sum(wordsUsed)*(difLvl)))
@@ -63,17 +59,12 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 
 
 
-	def operations(self):#difLvl, boardWords, playerWords):
-		#self.posWords[0] = boardWords
+	def operations(self):
 		self.posWords = Computer.wordScores(self.posWords, self.wordPoints)
-#		print(self.posWords)
 		Computer.isWords()
 		self.playerWords = Computer.wordScores(self.playerWords, self.wordPoints)
-		print(self.playerWords)
 		self.computerWordSum = Computer.sumWordScore(self.posWords[1], self.difLvl)
-#		print(self.computerWordSum)
 		self.opponentWords = Computer.computerWords(self.computerWordSum, self.posWords)
-		print(self.opponentWords)
 		Computer.scoring(self.playerWords, self.opponentWords)
 
 
