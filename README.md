@@ -35,17 +35,17 @@ Possible Words
 * List of all possible words
 
 ##### Methods:
-* text_objects() ← 
-* text_objects_black() ← 
-* button() ← 
-* quitGame() ← 
-* checkWord() ← 
-* instructions() ← 
-* game_intro() ← 
-* inbounds() ← 
-* endscreen() ← 
-* difficultySelect() ← 
-* game() ← 
+* text_objects(text, font) ← Creates a pygame text object and separates it into a rectangle object and a text object. White in color.
+* text_objects_black(text, font) ← Creates a pygame text object and separates it into a rectangle object and a text. Black in color.
+* button(msg,x,y,w,h,ic,ac,action=None,args=None) ← Creates a button object which leads to a function with message msg, position (x,y), w in width and h in height. ic is the base color and ac is the color when your mouse is hovering. Action is the function.
+* quitGame() ← Quit game
+* checkWord() ← Returns true, helper function
+* instructions() ← Instructions page
+* game_intro() ← Game Intro page
+* inbounds(x,y) ← In bounds helper function, checks if x and y are in bounds
+* endscreen() ← End screen Page
+* difficultySelect() ← Difficulty select
+* game(difficulty) ← Actual game class, difficulty level as parameter
 
 
 
@@ -64,11 +64,5 @@ Possible Words
 * wordScores() ← Assigns the score that each possible word on board would get
 * sumWordScore() ← Sums the scores of all word for a player(user or CPU)
 * computerWords() ← Generates opponent words based on a percentage of total possible score
-* scoring() ← compares score worthy words by user and CPU and gives points if the other doesn't have them 
+* scoring() ← compares score worthy words by user and CPU and gives points if the other doesn't have them
 * operations() ← Utility Class
-
-
-
-
-
-
