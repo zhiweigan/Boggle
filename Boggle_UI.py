@@ -1,10 +1,12 @@
 import pygame
 import math
+from Boggle_Computer import Computer
 
 pygame.init()
 display_width = 800
 display_height = 600
 score = 0
+computerscore = 0
 
 black = (0,0,0)
 white = (255,255,255)
@@ -111,7 +113,7 @@ def game_intro():
         TextRect.center = ((display_width/2),(display_height/2))
         gameDisplay.blit(TextSurf, TextRect)
 
-        button("GO!",150,450,100,50,green,bright_green,game)
+        button("GO!",150,450,100,50,green,bright_green,difficultySelect)
         button("Instructions", 300, 450, 200, 50, blue, bright_blue, instructions)
         button("Quit",550,450,100,50,red,bright_red,quitGame)
 
@@ -134,8 +136,20 @@ def endscreen():
         gameDisplay.fill(white)
         largeText = pygame.font.SysFont("comicsansms", 50)
         TextSurf, TextRect = text_objects_black("Game Over, you have " + str(score) + " points!", largeText)
-        TextRect.center = ((display_width / 2), (display_height / 2) - 100)
+        TextRect.center = ((display_width / 2), (display_height / 2) - 250)
         gameDisplay.blit(TextSurf, TextRect)
+        TextSurf, TextRect = text_objects_black("The computer has " + str(computerscore) + " points!", largeText)
+        TextRect.center = ((display_width / 2), (display_height / 2) - 150)
+        gameDisplay.blit(TextSurf, TextRect)
+
+        if score > computerscore:
+            TextSurf, TextRect = text_objects_black("You Win!", largeText)
+            TextRect.center = ((display_width / 2), (display_height / 2) - 75)
+            gameDisplay.blit(TextSurf, TextRect)
+        else:
+            TextSurf, TextRect = text_objects_black("You Lose!", largeText)
+            TextRect.center = ((display_width / 2), (display_height / 2) - 75)
+            gameDisplay.blit(TextSurf, TextRect)
 
         smallwordText = pygame.font.SysFont("comicsansms", 14)
         textSurf, textRect = text_objects_black("Possible Words:", smallwordText)
@@ -153,13 +167,40 @@ def endscreen():
             gameDisplay.blit(textSurf, textRect)
 
 
-        button("GO Again!", 150, 450, 100, 50, green, bright_green, game)
+        button("GO Again!", 150, 450, 100, 50, green, bright_green, difficultySelect)
         button("Quit", 550, 450, 100, 50, red, bright_red, quitGame)
 
         pygame.display.update()
         clock.tick(15)
 
-def game():
+
+def difficultySelect():
+
+    difficultySelectBool = True
+
+    while difficultySelectBool:
+        for event in pygame.event.get():
+            #print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        gameDisplay.fill(white)
+        largeText = pygame.font.SysFont("comicsansms",70)
+        TextSurf, TextRect = text_objects_black("Select Your Difficulty!", largeText)
+        TextRect.center = ((display_width/2),(display_height/2)-200)
+        gameDisplay.blit(TextSurf, TextRect)
+
+        button("Easy",150,300,100,50,green,bright_green,game, [0.3])
+        button("Medium", 300, 300, 200, 50, blue, bright_blue, game, [0.6])
+        button("Hard",550,300,100,50,red,bright_red,game, [0.9])
+
+        pygame.display.update()
+        clock.tick(15)
+
+
+
+def game(difficulty):
     global score
     starttime = pygame.time.get_ticks()
     grid = [['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h'], ['i', 'j', 'k', 'l'], ['m', 'n', 'o', 'p']]
@@ -170,6 +211,7 @@ def game():
     HEIGHT = 100
     gameOver = False
     letter = 0
+
     currentword = [[0 for i in range(4)] for j in range(4)]
     currentwordstring = ""
     dx = [1,1,1,0,-1,-1,-1,0]
@@ -264,7 +306,7 @@ def game():
         textRect.topleft = (100,520)
         gameDisplay.blit(textSurf, textRect)
 
-        if time >= 60 * 3 * 1000:
+        if time >= 60*3 * 1000:
             gameOver = True
 
 
@@ -272,8 +314,14 @@ def game():
         clock.tick(15)
 
     #score calculating and such
-    curscore = 0
-    score += curscore
+
+
+    ComputerTool = Computer(possiblewords, currentwords, difficulty)
+    ComputerTool.operations()
+
+    score = ComputerTool.playerScore
+    computerscore = ComputerTool.computerScore
+
     endscreen()
 
 
