@@ -1,4 +1,5 @@
 import json
+import numpy as np
 import random
 
 #generates board and finds all possible words
@@ -23,6 +24,7 @@ class Grid:
 
 	#make Board out of random dice rolls
 	def makeBoard(self):
+		templist = []
 		die0 = ['R', 'I', 'F', 'O', 'B', 'X']
 		die1 = ['I', 'F', 'E', 'H', 'E', 'Y']
 		die2 = ['D', 'E', 'N', 'O', 'W', 'S']
@@ -40,11 +42,33 @@ class Grid:
 		die14 = ['U', 'W', 'I', 'L', 'R', 'G']
 		die15 = ['P', 'A', 'C', 'E', 'M', 'D']
 
+		templist.append(die0)
+		templist.append(die1)
+		templist.append(die2)
+		templist.append(die3)
+		templist.append(die4)
+		templist.append(die5)
+		templist.append(die6)
+		templist.append(die7)
+		templist.append(die8)
+		templist.append(die9)
+		templist.append(die10)
+		templist.append(die11)
+		templist.append(die12)
+		templist.append(die13)
+		templist.append(die14)
+		templist.append(die15)
+
+
 		self.grid.append([die0[random.randint(0,5)], die1[random.randint(0,5)], die2[random.randint(0,5)], die3[random.randint(0,5)]])
 		self.grid.append([die4[random.randint(0,5)], die5[random.randint(0,5)], die6[random.randint(0,5)], die7[random.randint(0,5)]])
 		self.grid.append([die8[random.randint(0,5)], die9[random.randint(0,5)], die10[random.randint(0,5)], die11[random.randint(0,5)]])
 		self.grid.append([die12[random.randint(0,5)], die13[random.randint(0,5)], die14[random.randint(0,5)], die15[random.randint(0,5)]])
 
+		self.grid = np.array(self.grid)
+		self.grid = self.grid.reshape(16)
+		self.grid = np.random.permutation(self.grid)
+		self.grid = self.grid.reshape((4,4))
 
 	#Make self.possibleWords a list with all possible words based on a scrabble dictionary
 	def wordCheck(self):
