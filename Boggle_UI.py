@@ -158,6 +158,8 @@ def endscreen():
         textRect.topleft = (20, display_height / 2 - 60)
         gameDisplay.blit(textSurf, textRect)
 
+
+
         nextrow = -1
         for j in range(len(possiblewords)):
             if j > 50:
@@ -315,12 +317,13 @@ def game(difficulty):
         textRect.topleft = (100,520)
         gameDisplay.blit(textSurf, textRect)
 
-        if time >= 10 * 1000:
+        if time >= 15 * 1000:
             gameOver = True
 
 
         pygame.display.update()
         clock.tick(15)
+
 
     #score calculating and such
 

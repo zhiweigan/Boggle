@@ -21,6 +21,7 @@ class Grid:
 		self.inputWords = []
 		self.possibleWords =[]
 
+	#make Board out of random dice rolls
 	def makeBoard(self):
 		die0 = ['R', 'I', 'F', 'O', 'B', 'X']
 		die1 = ['I', 'F', 'E', 'H', 'E', 'Y']
@@ -44,13 +45,17 @@ class Grid:
 		self.grid.append([die8[random.randint(0,5)], die9[random.randint(0,5)], die10[random.randint(0,5)], die11[random.randint(0,5)]])
 		self.grid.append([die12[random.randint(0,5)], die13[random.randint(0,5)], die14[random.randint(0,5)], die15[random.randint(0,5)]])
 
+
+	#Make self.possibleWords a list with all possible words based on a scrabble dictionary
 	def wordCheck(self):
 		with open('scrabbleDictionary.json.txt') as json_data:
 			dictionary = json.loads(json_data.read())
 		for i in self.inputWords:
 			if i.lower() in dictionary:
 				self.possibleWords.append(i)
+		self.possibleWords = list(set(self.possibleWords))
 
+	#Recursive algorithm to find all possible words - similar to BFS, http://www.geeksforgeeks.org/boggle-find-possible-words-board-characters/
 	def findWords(self, i , j):
 		self.visited[i][j] = True
 		self.str = self.str + self.grid[i][j]
@@ -62,6 +67,7 @@ class Grid:
 		self.str = self.str[:-1]
 		self.visited[i][j] = False
 
+	#Start recursive function
 	def variables(self):
 		self.str = ''
 		self.visited = [[0]*4]*4
@@ -70,7 +76,4 @@ class Grid:
 				Grid.findWords(self, i, j)
 
 
-game1 = Grid()
-game1.makeBoard()
-game1.wordCheck()
 

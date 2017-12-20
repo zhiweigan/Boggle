@@ -4,11 +4,11 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 				  #take input from UI for the difficulty level
 	"""docstring for ClassName"""
 	def __init__(self, posWords, playerWords, difficulty):#, posWords, playerWords):
-		self.posWords = posWords,[]
+		self.posWords = [posWords,[]]
 		self.opponentWords = [],[]
 		self.difLvl = difficulty
 		self.wordPoints = [0, 0, 0, 1, 1, 2, 3, 4, 11, 11, 11, 11, 11, 11, 11, 11, 11]
-		self.playerWords = playerWords,[]
+		self.playerWords = [playerWords,[]]
 		self.computerWordSum = 0
 		self.playerScore = 0
 		self.computerScore = 0
@@ -18,12 +18,10 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 			words[1].append(wordPoints[len(words[0][i])])
 		return words
 
+	#https://stackoverflow.com/questions/2104305/finding-elements-not-in-a-list
 	def isWords(self):
-		for j in range(len(self.playerWords)):
-			for i in range(len(self.playerWords[0])-1):
-				if self.playerWords[j][i] not in self.posWords[j]:
-					(self.playerWords[j]).pop(i)
-					i -= 1
+		self.playerWords[0] = list(set(self.playerWords[0]) - set(self.posWords[0]))
+
 
 	def sumWordScore(self, wordsUsed, difLvl):
 		return int((sum(wordsUsed)*(difLvl)))
@@ -54,7 +52,9 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 				self.computerScore += computer[1][i] 
 
 	def operations(self):
+		#print(self.posWords)
 		self.posWords = Computer.wordScores(self, self.posWords, self.wordPoints)
+
 		Computer.isWords(self)
 		self.playerWords = Computer.wordScores(self, self.playerWords, self.wordPoints)
 		self.computerWordSum = Computer.sumWordScore(self, self.posWords[1], self.difLvl)
