@@ -2,20 +2,21 @@ import json
 import random
 
 #generates board and finds all possible words
-#randomizer for the letters
-#4X4 grid
-#return board as a 2d list
+
+
+#Sources:
+#json Dictionary File: https://github.com/simplewilliamz/scrabble/blob/master/scrabbleDictionary.json
+#Import/Use Dictionary File: https://stackoverflow.com/questions/20199126/reading-json-from-a-file
+#Dice Configuration: https://boardgames.stackexchange.com/questions/29264/boggle-what-is-the-dice-configuration-for-boggle-in-various-languages
 
 
 
 class Grid:
 
 	def __init__(self):
-		self.line1 = ''
-		self.line2 = ''
-		self.line3 = ''
-		self.line4 = ''
-		self.possibleWords = ''
+		self.grid = [['']*4]*4
+		self.inputWords = ['hello', 'goodbye', 'ttyyl']
+		self.possibleWords =[]
 
 	def makeBoard(self):
 		die0 = ['R', 'I', 'F', 'O', 'B', 'X']
@@ -42,11 +43,30 @@ class Grid:
 
 	def wordCheck(self):
 		with open('scrabbleDictionary.json.txt') as json_data:
- 			self.possibleWords = json.load(json_data)
- 			print(self.possibleWords)
+ 			dictionary = json.loads(json_data.read())
+		for i in self.inputWords:
+ 			if i in dictionary:
+ 				self.possibleWords.append(i)
+ 			else:
+ 				print('Word does not exist.')
 
-
-
+	def findWords(self, i , j, str):
+ 		visited[i][j] = True
+ 		str = str + self.grid[i][j]
+ 		self.inputWords.append(str)
+ 		for x = i-1, x <= i+1, x<4:
+ 			i++
+ 		for y = j-1, y <= j+1, y<4:
+ 			j++
+ 			
+ 	def variables():
+ 		str = ''
+		int(i) = 0
+ 		int(j) = 0
+		visited = [[0]*4]*4
+		for i in range(4):
+			for j in range(4):
+				findWords(i, j, str)
 
 
 game1 = Grid()
