@@ -3,6 +3,8 @@ Made by the BoggleBuddies
 
 This program allows the user to play Boggle with the computer at three different difficulty levels.
 
+**On Our Honor, We have neither given nor received unauthorized aid.**
+
 ## Grid Class - Connie
 
 ### Variables
