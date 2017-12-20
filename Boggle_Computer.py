@@ -21,6 +21,7 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 	#https://stackoverflow.com/questions/2104305/finding-elements-not-in-a-list
 	def isWords(self):
 		self.playerWords[0] = list(set(self.playerWords[0]) - set(self.posWords[0]))
+		print(self.playerWords[0])
 
 
 	def sumWordScore(self, wordsUsed, difLvl):
