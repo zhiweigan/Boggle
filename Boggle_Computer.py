@@ -23,6 +23,7 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 	def isWords(self): 
 		# checks to see if inputs from the user are words that could be made in the board- gets rid of them if they are not
 		self.playerWords[0] = list(set(self.playerWords[0]) - set(self.posWords[0]))
+		print(self.playerWords[0])
 
 
 	def sumWordScore(self, wordsUsed, difLvl):
