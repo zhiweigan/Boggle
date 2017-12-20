@@ -24,7 +24,7 @@ Possible Words
 * How to import json file: https://docs.python.org/3.6/library/json.html
 * How to access json file: https://stackoverflow.com/questions/20199126/reading-json-from-a-file
 
-### UI Class
+### UI Class – Zhi
 
 ##### Class Variables:
 * Timer
@@ -35,24 +35,40 @@ Possible Words
 * List of all possible words
 
 ##### Methods:
-* gameIntro() ← Intro page with instructions
-* startGame() ← Starts a new Boggle game and displays it
-* resetGame() ← Resets all variables and starts a boggle game
-* pickDifficulty() ← Screen to pick difficulty
-* endGame() ← Endgame screen
+* text_objects() ← 
+* text_objects_black() ← 
+* button() ← 
+* quitGame() ← 
+* checkWord() ← 
+* instructions() ← 
+* game_intro() ← 
+* inbounds() ← 
+* endscreen() ← 
+* difficultySelect() ← 
+* game() ← 
 
 
-### Computer Class
+
+### Computer Class – Jack
 
 ##### Class Variables:
-* List of all possible words
-* List of player words
-* List of opponent words
-* Difficulty Level
+* List of all possible words, points for each word
+* List of player input words, points for each word
+* List of opponent words, points for each word
+* Difficulty Level (as a fraction of 100)
 * Word points (for grading of words)
+* Player Score
+* Computer Score
 
 ##### Methods:
-* wordScores() ← Assigns scores to words
-* sumWordScore() ← Sums the scores of all possible words
-* computerWords() ← Generates opponent words
+* wordScores() ← Assigns the score that each possible word on board would get
+* sumWordScore() ← Sums the scores of all word for a player(user or CPU)
+* computerWords() ← Generates opponent words based on a percentage of total possible score
+* scoring() ← compares score worthy words by user and CPU and gives points if the other doesn't have them 
 * operations() ← Utility Class
+
+
+
+
+
+
