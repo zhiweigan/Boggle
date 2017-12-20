@@ -3,7 +3,7 @@ from random import randint
 class Computer():#difLvl, boardWords, playerWords): #need to somehow import the words that can be generated from the letters				
 				  #take input from UI for the difficulty level
 	"""docstring for ClassName"""
-	def __init__(self, posWords, playerWords, difficulty):#, posWords, playerWords):
+	def __init__(self, posWords, playerWords, difficulty):
 		self.posWords = [posWords,[]]
 		self.opponentWords = [],[]
 		self.difLvl = difficulty
@@ -56,7 +56,6 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 				self.computerScore += computer[1][i] 
 
 	def operations(self): # performs all the actual actions in the class
-		#print(self.posWords)
 		self.posWords = Computer.wordScores(self, self.posWords, self.wordPoints) 
 		# takes the possible words generated in other class and formats them to this class, then finds score each word would earn
 		Computer.isWords(self)
