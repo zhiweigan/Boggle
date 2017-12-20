@@ -19,10 +19,11 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 		return words
 
 	def isWords(self):
-		for i in range(len(self.playerWords[0])-1):
-			if self.playerWords[0][i] not in self.posWords[0]:
-				(self.playerWords[0]).pop(i) 
-				i -= 1
+		for j in range(len(self.playerWords)):
+			for i in range(len(self.playerWords[0])-1):
+				if self.playerWords[j][i] not in self.posWords[j]:
+					(self.playerWords[j]).pop(i)
+					i -= 1
 
 	def sumWordScore(self, wordsUsed, difLvl):
 		return int((sum(wordsUsed)*(difLvl)))
@@ -30,17 +31,17 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 	def computerWords(self, scoreSum, posWords):
 
 		(self.opponentWords[0]).append(posWords[0][randint(0, len(posWords[1])-1)])
-		self.opponentWords = Computer.wordScores(self.opponentWords, self.wordPoints)
-		Amy = Computer.sumWordScore(self.opponentWords[1],1)
+		self.opponentWords = Computer.wordScores(self,self.opponentWords, self.wordPoints)
+		Amy = Computer.sumWordScore(self,self.opponentWords[1],1)
 		Rita = int((self.computerWordSum))
 		
 		while Amy <= Rita:
 			Monica = posWords[0][randint(0, len(posWords[1])-1)]
 			if Monica not in self.opponentWords[0]:
 				self.opponentWords[0].append(Monica)
-				Amy = Computer.sumWordScore(self.opponentWords[1],1)
+				Amy = Computer.sumWordScore(self,self.opponentWords[1],1)
 			(self.opponentWords[1]).clear()
-			self.opponentWords = Computer.wordScores(self.opponentWords, self.wordPoints)
+			self.opponentWords = Computer.wordScores(self,self.opponentWords, self.wordPoints)
 			
 		return self.opponentWords
 
@@ -53,12 +54,9 @@ class Computer():#difLvl, boardWords, playerWords): #need to somehow import the 
 				self.computerScore += computer[1][i] 
 
 	def operations(self):
-		self.posWords = Computer.wordScores(self.posWords, self.wordPoints)
-		Computer.isWords()
-		self.playerWords = Computer.wordScores(self.playerWords, self.wordPoints)
-		self.computerWordSum = Computer.sumWordScore(self.posWords[1], self.difLvl)
-		self.opponentWords = Computer.computerWords(self.computerWordSum, self.posWords)
-		Computer.scoring(self.playerWords, self.opponentWords)
-
-Computer = Computer()
-Computer.operations()
+		self.posWords = Computer.wordScores(self, self.posWords, self.wordPoints)
+		Computer.isWords(self)
+		self.playerWords = Computer.wordScores(self, self.playerWords, self.wordPoints)
+		self.computerWordSum = Computer.sumWordScore(self, self.posWords[1], self.difLvl)
+		self.opponentWords = Computer.computerWords(self, self.computerWordSum, self.posWords)
+		Computer.scoring(self, self.playerWords, self.opponentWords)

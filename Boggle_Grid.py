@@ -9,13 +9,16 @@ import random
 #Import/Use Dictionary File: https://stackoverflow.com/questions/20199126/reading-json-from-a-file
 #Dice Configuration: https://boardgames.stackexchange.com/questions/29264/boggle-what-is-the-dice-configuration-for-boggle-in-various-languages
 
+def inbounds(x,y):
+	return x >= 0 and x < 4 and y >= 0 and y < 4
 
+dx = [1,1,1,0,-1,-1,-1,0]
+dy = [0,1,-1,1,0,-1,1,-1]
 
 class Grid:
-
 	def __init__(self):
-		self.grid = [['']*4]*4
-		self.inputWords = ['hello', 'goodbye', 'ttyyl']
+		self.grid = []
+		self.inputWords = []
 		self.possibleWords =[]
 
 	def makeBoard(self):
@@ -36,37 +39,35 @@ class Grid:
 		die14 = ['U', 'W', 'I', 'L', 'R', 'G']
 		die15 = ['P', 'A', 'C', 'E', 'M', 'D']
 
-		print(die0[random.randint(0,5)], die1[random.randint(0,5)], die2[random.randint(0,5)], die3[random.randint(0,5)])
-		print(die4[random.randint(0,5)], die5[random.randint(0,5)], die6[random.randint(0,5)], die7[random.randint(0,5)])
-		print(die8[random.randint(0,5)], die9[random.randint(0,5)], die10[random.randint(0,5)], die11[random.randint(0,5)])
-		print(die12[random.randint(0,5)], die13[random.randint(0,5)], die14[random.randint(0,5)], die15[random.randint(0,5)])
+		self.grid.append([die0[random.randint(0,5)], die1[random.randint(0,5)], die2[random.randint(0,5)], die3[random.randint(0,5)]])
+		self.grid.append([die4[random.randint(0,5)], die5[random.randint(0,5)], die6[random.randint(0,5)], die7[random.randint(0,5)]])
+		self.grid.append([die8[random.randint(0,5)], die9[random.randint(0,5)], die10[random.randint(0,5)], die11[random.randint(0,5)]])
+		self.grid.append([die12[random.randint(0,5)], die13[random.randint(0,5)], die14[random.randint(0,5)], die15[random.randint(0,5)]])
 
 	def wordCheck(self):
 		with open('scrabbleDictionary.json.txt') as json_data:
- 			dictionary = json.loads(json_data.read())
+			dictionary = json.loads(json_data.read())
 		for i in self.inputWords:
- 			if i in dictionary:
- 				self.possibleWords.append(i)
- 			else:
- 				print('Word does not exist.')
+			if i.lower() in dictionary:
+				self.possibleWords.append(i)
 
-	def findWords(self, i , j, str):
- 		visited[i][j] = True
- 		str = str + self.grid[i][j]
- 		self.inputWords.append(str)
- 		for x = i-1, x <= i+1, x<4:
- 			i++
- 		for y = j-1, y <= j+1, y<4:
- 			j++
- 			
- 	def variables():
- 		str = ''
-		int(i) = 0
- 		int(j) = 0
-		visited = [[0]*4]*4
+	def findWords(self, i , j):
+		self.visited[i][j] = True
+		self.str = self.str + self.grid[i][j]
+		self.inputWords.append(self.str)
+		for z in range(8):
+			if inbounds(i + dy[z], j + dx[z]) and self.visited[i + dy[z]][ j + dx[z]] == 0:
+				Grid.findWords(self, i+dy[z], j + dx[z])
+
+		self.str = self.str[:-1]
+		self.visited[i][j] = False
+
+	def variables(self):
+		self.str = ''
+		self.visited = [[0]*4]*4
 		for i in range(4):
 			for j in range(4):
-				findWords(i, j, str)
+				Grid.findWords(self, i, j)
 
 
 game1 = Grid()

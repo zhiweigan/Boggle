@@ -1,6 +1,7 @@
 import pygame
 import math
 from Boggle_Computer import Computer
+from Boggle_Grid import Grid
 
 pygame.init()
 display_width = 800
@@ -124,6 +125,7 @@ def inbounds(x,y):
     return x >= 0 and x < 4 and y >= 0 and y < 4
 
 def endscreen():
+    global possiblewords
     end = True
 
     while end:
@@ -201,9 +203,17 @@ def difficultySelect():
 
 
 def game(difficulty):
+    global possiblewords
     global score
+    global computerscore
     starttime = pygame.time.get_ticks()
-    grid = [['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h'], ['i', 'j', 'k', 'l'], ['m', 'n', 'o', 'p']]
+    GridTool = Grid()
+    GridTool.makeBoard()
+    grid = GridTool.grid
+    GridTool.variables()
+    GridTool.wordCheck()
+    possiblewords = GridTool.possibleWords
+
     HSIDEMARGIN = 170
     VSIDEMARGIN = 30
     MARGIN = 20
@@ -250,7 +260,7 @@ def game(difficulty):
                             currentwordstring += grid[row][col].lower()
 
 
-                print("Click ", pos, "Grid coordinates: ", row, col, letter)
+                #print("Click ", pos, "Grid coordinates: ", row, col, letter)
 
         gameDisplay.fill(white)
 
@@ -273,7 +283,6 @@ def game(difficulty):
             wordBool = button("CHECK WORD",300,520,200,50,green,bright_green,checkWord, [currentwordstring])
 
             if wordBool != None:
-                print(wordBool)
                 currentwords.append(currentwordstring)
                 currentword = [[0 for i in range(4)] for j in range(4)]
                 currentwordstring = ""
@@ -306,7 +315,7 @@ def game(difficulty):
         textRect.topleft = (100,520)
         gameDisplay.blit(textSurf, textRect)
 
-        if time >= 60*3 * 1000:
+        if time >= 10 * 1000:
             gameOver = True
 
 
